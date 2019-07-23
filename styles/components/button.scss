@@ -1,0 +1,141 @@
+$prefixCls: 'hcl-button';
+
+.#{$prefixCls} {
+  line-height: 1;
+  font-weight: 400;
+  border-radius: 4px;
+  text-align: center;
+  white-space: nowrap;
+  transition: .3s;
+  cursor: pointer;
+  &+& {
+    margin-left: 10px;
+  }
+  &--dashed {
+    border-style: dashed !important;
+  }
+  &--default {
+    color: #606266;
+    border: 1px solid #dcdfe6;
+    &:hover {
+      color: #409eff;
+      border-color: #c6e2ff;
+      background-color: #ecf5ff;
+    }
+    &:active {
+      color: #3a8ee6;
+      border-color: #3a8ee6;
+    }
+    &[disabled] {
+      color: #c0c4cc;
+      background-image: none;
+      background-color: #fff;
+      border-color: #ebeef5;
+      cursor: not-allowed;
+    }
+  }
+  &--primary {
+    color: #fff;
+    background-color: #409EFF;
+    border: 1px solid #409EFF;
+    &:hover {
+      background: #66b1ff;
+      border: 1px solid #66b1ff;
+    }
+    &:active {
+      background: #3a8ee6;
+      border: 1px solid #3a8ee6;
+    }
+    &[disabled] {
+      background-color: #a0cfff;
+      border-color: #a0cfff;
+      cursor: not-allowed;
+    }
+  }
+  &--success {
+    color: #fff;
+    background-color: #67c23a;
+    border: 1px solid #67c23a;
+    &:hover {
+      background: #85ce61;
+      border: 1px solid #85ce61;
+    }
+    &:active {
+      background: #5daf34;
+      border: 1px solid #5daf34;
+    }
+    &[disabled] {
+      background-color: #b3e19d;
+      border-color: #b3e19d;
+      cursor: not-allowed;
+    }
+  }
+  &--danger {
+    color: #fff;
+    background-color: #f56c6c;
+    border: 1px solid #f56c6c;
+    &:hover {
+      background: #f78989;
+      border: 1px solid #f78989;
+    }
+    &:active {
+      background: #dd6161;
+      border: 1px solid #dd6161;
+    }
+    &[disabled] {
+      background-color: #fab6b6;
+      border-color: #fab6b6;
+      cursor: not-allowed;
+    }
+  }
+  &--text {
+    border-color: transparent;
+    color: #409eff;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    &:hover {
+      color: #66b1ff;
+    }
+    &:active {
+      color: #3a8ee6;
+    }
+    &[disabled] {
+      color: #c0c4cc;
+      cursor: not-allowed;
+    }
+  }
+  &--large {
+    height: 40px;
+    padding: 0 15px;
+    font-size: 16px;
+  }
+  &--medium {
+    height: 32px;
+    padding: 0 15px;
+    font-size: 14px;
+  }
+  &--small {
+    height: 24px;
+    padding: 0 7px;
+    font-size: 14px;
+  }
+  &.is-loading {
+    position: relative;
+    pointer-events: none;
+    &::before {
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: inherit;
+      background-color: hsla(0,0%,100%,.35);
+      pointer-events: none;
+      content: "";
+    }
+  }
+  .iconfont+span {
+    margin-left: 8px;
+  }
+}

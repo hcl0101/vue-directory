@@ -1,0 +1,34 @@
+$prefixCls: 'hcl-context-menu';
+
+.#{$prefixCls} {
+  position: absolute;
+  padding: 5px 0;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px 0 hsla(0,0%,59%,.2);
+  list-style: none;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 2800;
+  &__item {
+    padding: 5px 14px;
+    line-height: 1;
+    color: #333;
+    &:hover {
+      color: #fff;
+      background: #409EFF;
+    }
+    i {
+      margin-right: 7px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+  &--divider {
+    margin: 5px 0;
+    border-bottom: 1px solid #e8e8e8;
+  }
+}
