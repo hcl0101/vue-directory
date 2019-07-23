@@ -19,12 +19,12 @@
         </vue-directory>
       </template>
     </vue-directory-group>
-    <vue-context-menu
+    <vue-contextmenu
       ref="context"
       :context="contextmenu"
       @show-contextmenu="showContextmenu"
       @click-contextmenu="clickContextmenu">
-    </vue-context-menu>
+    </vue-contextmenu>
   </div>
   <template v-for="(api, index) in apis">
     <Table :key="index" :title="api.title" :data="api.data"></Table>

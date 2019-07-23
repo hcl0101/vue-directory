@@ -24,7 +24,7 @@
 import TransferDom from "@/directives/transfer-dom.js";
 
 export default {
-  name: 'vueContextMenu',
+  name: 'vueContextmenu',
 
   directives: {
     TransferDom
