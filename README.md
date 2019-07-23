@@ -1,6 +1,9 @@
-# hcl
+# vue-directory
 
-[在线demo](https://hcl0101.github.io/hcl)
+依赖于element-ui，使用到了其中的checkbox。
+组件中用到了右键菜单，额外简单封装了一个vue-contextmenu一起使用
+
+[在线demo](https://hcl0101.github.io/vue-directory)
 
 ## Project setup
 ```
