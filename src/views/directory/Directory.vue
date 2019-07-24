@@ -95,6 +95,7 @@ export default {
 
     clickFolder(folder) {
       this.loading = true;
+      this.$message({ message: `点击了: ${folder.name}`, type: 'success' });
       this.breadcrumbList.push({ name: folder.name, id: folder.id });
       setTimeout(() => {
         this.loading = false;
@@ -102,7 +103,7 @@ export default {
     },
 
     clickFile(file) {
-      alert('点击了文件')
+      this.$message({ message: `点击了: ${file.name}`, type: 'success' });
     },
 
     clickBreadcrumb(breadcrumb) {
@@ -119,12 +120,15 @@ export default {
       } else if (type === 'folder') {
         this.contextmenu = [
           { label: '删除', value: 'delete' },
+          { divider: true },
           { label: '重命名', value: 'rename' }
         ];
       } else {
         this.contextmenu = [
           { label: '编辑', value: 'edit' },
+          { divider: true },
           { label: '删除', value: 'delete' },
+          { divider: true },
           { label: '重命名', value: 'rename' }
         ];
       }

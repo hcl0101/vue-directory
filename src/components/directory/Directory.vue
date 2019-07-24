@@ -61,10 +61,6 @@ export default {
       type: Boolean,
       default: false
     },
-    renameable: {
-      type: Boolean,
-      default: true
-    },
     hoverColor: {
       type: String,
       default: '#bddaf9'

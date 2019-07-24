@@ -20,13 +20,13 @@
         </div>
       </div>
     </div>
-    <vue-context-menu
+    <vue-contextmenu
       ref="context"
       :context="contextmenu"
       @show-contextmenu="handleShow"
       @hide-contextmenu="handleHide"
       @click-contextmenu="handleClickContextmenu">
-    </vue-context-menu>
+    </vue-contextmenu>
     <template v-for="(api, index) in apis">
       <Table :key="index" :title="api.title" :data="api.data"></Table>
     </template>

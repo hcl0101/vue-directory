@@ -1,6 +1,6 @@
 export default [
   {
-    title: 'directory-group Attributes',
+    title: 'directory-group 属性',
     data: [
       {
         '参数': 'loading',
@@ -18,16 +18,10 @@ export default [
         '参数': 'breadcrumb-list',
         '说明': '当前目录的结构',
         '类型': 'Array',
-        '默认值': '{ name: 根目录, id: / }'
+        '默认值': { name: '根目录', id: '/' }
       },
       {
-        '参数': 'hoverColor',
-        '说明': '批量设置hover时的背景色， 覆盖child的hoverColor',
-        '类型': 'String',
-        '默认值': '#bddaf9'
-      },
-      {
-        '参数': 'emptyText',
+        '参数': 'empty-text',
         '说明': '无数据时，展示的文字提醒',
         '类型': 'String',
         '默认值': '该文件夹为空!'
@@ -38,43 +32,38 @@ export default [
     title: 'directory-group 方法',
     data: [
       {
-        '名称': 'rename',
-        '说明': '重命名文件夹/文件',
-        '参数': 'index: 文件夹/文件的索引'
-      },
-      {
         '名称': 'click-breadcrumb',
         '说明': '点击目录',
         '参数': '{ name: xx, id: xx }'
-      }
+      },
+      {
+        '名称': 'checked-change',
+        '说明': '选中文件夹、文件夹时触发',
+        '回调函数': 'function(checkedItems) {}',
+        '参数': 'checkedItems: 选中的资源'
+      },
     ]
   },
   {
-    title: 'directory Attributes',
+    title: 'directory 属性',
     data: [
       {
         '参数': 'data',
-        '说明': '文件夹/文件的数据对象',
-        '类型': 'Boolean',
-        '默认值': "{ img: '', name: '' }"
+        '说明': '目录所需要的数据',
+        '类型': 'Object',
+        '默认值': { img: '', name: '', editing: false }
       },
       {
-        '参数': 'renameable',
-        '说明': '是否可重命名, 优先级高于group的renameable',
+        '参数': 'show-checkbox',
+        '说明': '目录是否可选',
         '类型': 'Boolean',
         '默认值': true
       },
       {
-        '参数': 'hoverColor',
-        '说明': 'hover时的背景颜色, 优先级低于group的hoverColor',
+        '参数': 'hover-color',
+        '说明': '鼠标悬停时的背景色',
         '类型': 'String',
         '默认值': '#bddaf9'
-      },
-      {
-        '参数': 'show-checkbox',
-        '说明': '是否展示checkbox',
-        '类型': 'Boolean',
-        '默认值': 'true'
       }
     ]
   },
@@ -87,7 +76,7 @@ export default [
         '回调函数': '(data, e) data: 文件夹/文件的数据， e: event'
       },
       {
-        '名称': 'rename',
+        '名称': 'save',
         '说明': '保存名称时触发',
         '参数': 'name: 文件、文件夹的名称'
       }
