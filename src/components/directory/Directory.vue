@@ -6,6 +6,7 @@
     @click="handleClick"
     @mouseenter="isHover = true"
     @mouseleave="isHover = false">
+    <slot></slot>
     <div class="img-container">
       <img :src="data.img" alt="">
     </div>
