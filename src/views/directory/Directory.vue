@@ -4,6 +4,7 @@
     <vue-directory-group
       ref="directory"
       show-breadcrumb
+      :type="type"
       :loading="loading"
       :breadcrumb-list="breadcrumbList"
       @checked-change="handleChecked"
@@ -16,6 +17,14 @@
           :data="directory"
           @click="handleClick"
           @save="name => save(name, index)">
+          <template v-slot:right v-if="type === 'list'">
+            <div>
+              <a href="">编辑</a>
+              <a href="">重命名</a>
+              <a href="">分享</a>
+              <a href="">删除</a>
+            </div>
+          </template>
         </vue-directory>
       </template>
     </vue-directory-group>
@@ -54,6 +63,7 @@ export default {
     return {
       apis: API,
       loading: false,
+      type: 'list',
       data: [
         { id: 1, type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
         { id: 2, type: 'folder', name: '文件夹1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
@@ -87,9 +97,10 @@ export default {
       this.data.push({
         id: this.data.length + 1,
         name: '文件夹' + this.data.length,
-        editing: true,
         img: ICON_DIRECTORY,
-        type: 'folder'
+        type: 'folder',
+        editing: true,
+        showCheckbox: true
       });
     },
 

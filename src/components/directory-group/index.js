@@ -1,3 +1,3 @@
-import DirectoryGroup from "../directory/Directory-group";
+import DirectoryGroup from "./Directory-group";
 
 export default DirectoryGroup;

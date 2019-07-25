@@ -60,6 +60,10 @@ a {
 	background:transparent;
 }
 
+ul,li{
+	list-style:none
+}
+
 /* change colours to suit your needs */
 ins {
 	background-color:#ff9;

@@ -7,26 +7,28 @@
     @mouseenter="isHover = true"
     @mouseleave="isHover = false">
     <slot></slot>
-    <div class="img-container">
+    <div class="directory-img">
       <img :src="data.img" alt="">
     </div>
-    <input v-if="data.editing"
-      ref="input"
-      class="hcl-input"
-      type="text"
-      v-model="name"
-      @click.stop.prevent
-      @blur="handleBlur"
-      @keyup.esc="handleKeyupEsc"
-      @keyup.enter="$event.target.blur"/>
+    <div v-if="data.editing" class="directory-input">
+      <input
+        ref="input"
+        class="hcl-input"
+        type="text"
+        v-model="name"
+        @click.stop.prevent
+        @blur="handleBlur"
+        @keyup.esc="handleKeyupEsc"
+        @keyup.enter="$event.target.blur"/>
+    </div>
     <p v-else
-      class="ellipsis"
+      class="directory-name ellipsis"
       :title="name"
       @click.stop.prevent="handleRename">
       {{ name }}
     </p>
     <div
-      class="checkbox-container"
+      class="directory-checkbox"
       v-if="showCheckbox"
       :style="{
         display: (isHover || isChecked) ? 'block' : 'none',
@@ -44,27 +46,12 @@
 <script>
 
 export default {
-  name: 'vueDirectory',
+  name: 'DirectoryItemNormal',
 
   props: {
-    data: {
-      type: Object,
-      default: () => {
-        return {
-          img: '',
-          name: '',
-          editing: false
-        }
-      }
-    },
-    showCheckbox: {
-      type: Boolean,
-      default: false
-    },
-    hoverColor: {
-      type: String,
-      default: '#bddaf9'
-    }
+    data: Object,
+    showCheckbox: Boolean,
+    hoverColor: String
   },
 
   data() {

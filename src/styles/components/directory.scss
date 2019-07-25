@@ -11,34 +11,87 @@ $prefixCls: 'hcl-directory';
   height: 130px;
   margin: 10px;
   cursor: pointer;
-  .img-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    width: 100%;
-    height: 100px;
-    padding-bottom: 6px;
-  }
-  p {
-    width: inherit;
-    line-height: 30px;
+  &__list {
+    padding: 10px 20px;
     color: #1a1a1a;
     font-size: 14px;
-    text-align: center;
+    li {
+      display: flex;
+      flex-direction: row;
+      padding: 0 15px 0 25px;
+      line-height: 32px;
+      border-bottom: 1px solid #f4f4f5;
+      cursor: pointer;
+      &:last-child {
+        border: none;
+      }
+    }
+    .directory-checkbox {
+      position: absolute;
+      left: 28px;
+      .el-checkbox__label {
+        display: none;
+      }
+    }
+    .directory-img {
+      width: 40px;
+      text-align: center;
+      & img {
+        height: 18px;
+        vertical-align: middle;
+      }
+    }
+    .directory-name {
+      flex: 1;
+      padding: 0 18px;
+    }
+    .directory-input {
+      flex: 1;
+      width: inherit;
+      input[type=text] {
+        width: 240px;
+        height: 30px;
+        line-height: 30px;
+        color: #1a1a1a;
+        font-size: 14px;
+      }
+    }
+    .directory-action {
+      width: 100px;
+    }
   }
-  input[type=text] {
-    width: inherit;
-    height: 30px;
-    line-height: 30px;
-    color: #1a1a1a;
-    font-size: 14px;
-  }
-  .checkbox-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    .el-checkbox__label {
-      display: none;
+  &__normal {
+    .directory-img {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+      height: 100px;
+      padding-bottom: 6px;
+    }
+    .directory-name {
+      width: inherit;
+      line-height: 30px;
+      color: #1a1a1a;
+      font-size: 14px;
+      text-align: center;
+    }
+    .directory-input {
+      width: inherit;
+      input[type=text] {
+        height: 30px;
+        line-height: 30px;
+        color: #1a1a1a;
+        font-size: 14px;
+      }
+    }
+    .directory-checkbox {
+      position: absolute;
+      top: 0;
+      left: 0;
+      .el-checkbox__label {
+        display: none;
+      }
     }
   }
 }

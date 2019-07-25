@@ -25,11 +25,14 @@
           <i class="iconfont icon-loading"></i>
         </div>
         <el-checkbox-group v-else
-          class="clearfix"
           ref="checkbox-group"
+          :class="type === 'normal' ? 'hcl-directory__normal clearfix' : 'hcl-directory__list'"
           v-model="checkedItems"
           @change="handleItemChecked">
-          <slot></slot>
+          <slot v-if="type === 'normal'"></slot>
+          <ul v-else-if="type === 'list'">
+            <slot></slot>
+          </ul>
         </el-checkbox-group>
       </template>
     </div>
@@ -44,6 +47,10 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    type: {                 // 目录展示的类型： 正常、列表
+      type: String,
+      default: 'normal'     // normal/list
     },
     emptyText: {
       type: String,
