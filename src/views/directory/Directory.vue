@@ -18,11 +18,13 @@
           @click="handleClick"
           @save="name => save(name, index)">
           <template v-slot:right v-if="type === 'list'">
-            <div>
-              <a href="">编辑</a>
-              <a href="">重命名</a>
-              <a href="">分享</a>
-              <a href="">删除</a>
+            <div
+              v-if="data[index].type !== 'create'"
+              class="directory-actions"
+              @click.stop.prevent>
+              <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
+              <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
+              <el-button type="text" @click="triggerOperation(index, 'delete')">删除</el-button>
             </div>
           </template>
         </vue-directory>
@@ -148,7 +150,10 @@ export default {
     clickContextmenu(contextmenu, vnode) {
       const index = this.data.findIndex(directory => directory.id === vnode.key);
       const type = contextmenu.value;
-      
+      this.triggerOperation(index, type);
+    },
+
+    triggerOperation(index, type) {
       if (type === 'edit') {
         this.data[index].editing = true;
       } else if (type === 'delete') {
@@ -170,5 +175,8 @@ export default {
     margin: 0 20px 20px 20px;
     border: 1px solid #ebedf0;
     border-radius: 2px;
+    .directory-actions {
+
+    }
   }
 </style>

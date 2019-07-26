@@ -14,7 +14,7 @@
         @change="value => isChecked = value">
       </el-checkbox>
     </div>
-    <div class="directory-img">
+    <div class="directory-img flex-center">
       <img :src="data.img" alt="">
     </div>
     <div class="directory-input" v-if="data.editing">

@@ -16,6 +16,7 @@ $prefixCls: 'hcl-directory';
     color: #1a1a1a;
     font-size: 14px;
     li {
+      position: relative;
       display: flex;
       flex-direction: row;
       padding: 0 15px 0 25px;
@@ -28,22 +29,22 @@ $prefixCls: 'hcl-directory';
     }
     .directory-checkbox {
       position: absolute;
-      left: 28px;
+      left: 5px;
+      top: 4px;
       .el-checkbox__label {
         display: none;
       }
     }
     .directory-img {
       width: 40px;
-      text-align: center;
       & img {
         height: 18px;
-        vertical-align: middle;
       }
     }
     .directory-name {
       flex: 1;
       padding: 0 18px;
+      line-height: 40px;
     }
     .directory-input {
       flex: 1;
@@ -55,9 +56,6 @@ $prefixCls: 'hcl-directory';
         color: #1a1a1a;
         font-size: 14px;
       }
-    }
-    .directory-action {
-      width: 100px;
     }
   }
   &__normal {
