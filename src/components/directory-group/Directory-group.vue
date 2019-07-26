@@ -17,24 +17,26 @@
       <slot name="header"></slot>
     </div>
     <div class="hcl-directory-group__body">
-      <div v-if="!$slots.default" class="hcl-directory-group--empty flex-center">
-        <p>{{ emptyText }}</p>
-      </div>
-      <template v-else>
-        <div v-if="loading" class="hcl-directory__loading">
-          <i class="iconfont icon-loading"></i>
+      <el-scrollbar style="height: 100%">
+        <div v-if="!$slots.default" class="hcl-directory-group--empty flex-center">
+          <p>{{ emptyText }}</p>
         </div>
-        <el-checkbox-group v-else
-          ref="checkbox-group"
-          :class="type === 'normal' ? 'hcl-directory__normal clearfix' : 'hcl-directory__list'"
-          v-model="checkedItems"
-          @change="handleItemChecked">
-          <slot v-if="type === 'normal'"></slot>
-          <ul v-else-if="type === 'list'">
-            <slot></slot>
-          </ul>
-        </el-checkbox-group>
-      </template>
+        <template v-else>
+          <div v-if="loading" class="hcl-directory__loading">
+            <i class="iconfont icon-loading"></i>
+          </div>
+          <el-checkbox-group v-else
+            ref="checkbox-group"
+            :class="type === 'normal' ? 'hcl-directory__normal clearfix' : 'hcl-directory__list'"
+            v-model="checkedItems"
+            @change="handleItemChecked">
+            <slot v-if="type === 'normal'"></slot>
+            <ul v-else-if="type === 'list'">
+              <slot></slot>
+            </ul>
+          </el-checkbox-group>
+        </template>
+      </el-scrollbar>
     </div>
   </div>
 </template>

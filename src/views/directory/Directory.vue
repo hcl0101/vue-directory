@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="view-directory">
-    <vue-directory-group
+    <vue-directory-group style="height:300px;"
       ref="directory"
       show-breadcrumb
       :type="type"
@@ -65,7 +65,7 @@ export default {
     return {
       apis: API,
       loading: false,
-      type: 'list',
+      type: 'normal',
       data: [
         { id: 1, type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
         { id: 2, type: 'folder', name: '文件夹1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
@@ -175,8 +175,5 @@ export default {
     margin: 0 20px 20px 20px;
     border: 1px solid #ebedf0;
     border-radius: 2px;
-    .directory-actions {
-
-    }
   }
 </style>

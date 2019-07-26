@@ -124,7 +124,6 @@ $prefixCls: 'hcl-directory';
   &__body {
     position: relative;
     flex: 1;
-    min-height: 220px;
     overflow: auto;
   }
   &--empty {

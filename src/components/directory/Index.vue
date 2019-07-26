@@ -60,7 +60,7 @@ export default {
 
   computed: {
     type() {
-      return this.$parent.$parent.type;
+      return this.$parent.$parent.$parent.type;
     }
   },
 
