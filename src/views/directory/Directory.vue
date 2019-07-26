@@ -9,6 +9,14 @@
       :breadcrumb-list="breadcrumbList"
       @checked-change="handleChecked"
       @click-breadcrumb="clickBreadcrumb">
+      <template slot="header-right">
+        <div class="flex-center">
+          <el-radio-group v-model="type" size="mini">
+            <el-radio-button label="normal">平铺</el-radio-button>
+            <el-radio-button label="list">列表</el-radio-button>
+          </el-radio-group>
+        </div>
+      </template>
       <template v-for="(directory, index) in data">
         <vue-directory
           v-context-menu="contextmenu"

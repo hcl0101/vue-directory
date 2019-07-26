@@ -56,6 +56,15 @@ export default [
     ]
   },
   {
+    title: 'directory-group slot',
+    data: [
+      {
+        '名称': 'header-right',
+        '说明': '目录头部位于最右侧的位置，可用于渲染目录展示方式： 平铺(normal), 列表(list)'
+      }
+    ]
+  },
+  {
     title: 'directory 属性',
     data: [
       {

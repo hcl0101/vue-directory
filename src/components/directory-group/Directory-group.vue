@@ -14,7 +14,7 @@
           </el-breadcrumb-item>
         </el-breadcrumb>
       </template>
-      <slot name="header"></slot>
+      <slot name="header-right"></slot>
     </div>
     <div class="hcl-directory-group__body">
       <el-scrollbar style="height: 100%">
