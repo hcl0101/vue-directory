@@ -30,7 +30,7 @@
           @save="name => save(name, index)">
           <p v-if="type === 'normal'"
             class="directory-path ellipsis">
-            {{ directory.name }}
+            {{ directory.path }}
           </p>
           <template v-if="type === 'list'" v-slot:default="prop">
             <template v-if="directory.type !== 'create'">

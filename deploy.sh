@@ -15,6 +15,6 @@ git add -A
 git commit -m 'deploy'
 
 # 提交到 https://github.com:nusr/resume-vue 项目的 gh-pages 分支
-git push -f git@github.com:nusr/resume-vue.git master:gh-pages
+git push -f git@github.com:hcl0101/vue-directory.git master:gh-pages
 
 cd -
