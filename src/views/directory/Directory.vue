@@ -6,6 +6,7 @@
       show-breadcrumb
       maxLength="20"
       :type="type"
+      :title="['名称', 'id', '路径', '操作']"
       :loading="loading"
       :breadcrumb-list="breadcrumbList"
       @checked-change="handleChecked"
@@ -23,6 +24,7 @@
           v-context-menu="contextmenu"
           :key="directory.id"
           :show-checkbox="directory.showCheckbox"
+          :fields="['id', 'path', 'operation']"
           :data="directory"
           @click="handleClick"
           @save="name => save(name, index)">
@@ -30,14 +32,17 @@
             class="directory-path ellipsis">
             {{ directory.name }}
           </p>
-          <template v-slot:right v-if="type === 'list'">
-            <div
-              v-if="data[index].type !== 'create'"
-              @click.stop.prevent>
-              <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
-              <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
-              <el-button type="text" @click="triggerOperation(index, 'delete')">删除</el-button>
-            </div>
+          <template v-if="type === 'list'" v-slot:default="prop">
+            <template v-if="directory.type !== 'create'">
+              <span>{{ directory[prop.field] }}</span>
+              <div
+                v-if="prop.field === 'operation'"
+                @click.stop.prevent>
+                <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
+                <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
+                <el-button type="text" @click="triggerOperation(index, 'delete')">删除</el-button>
+              </div>
+            </template>
           </template>
         </vue-directory>
       </template>
@@ -79,13 +84,13 @@ export default {
       loading: false,
       type: 'normal',
       data: [
-        { id: 1, type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
-        { id: 2, type: 'folder', name: '文件夹1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
-        { id: 3, type: 'folder', name: '文件夹2', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
-        { id: 4, type: 'folder', name: '文件夹3', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
-        { id: 5, type: 'file', name: '文件1', editing: false, showCheckbox: true, img: ICON_FILE },
-        { id: 6, type: 'file', name: '文件2', editing: false, showCheckbox: true, img: ICON_FILE },
-        { id: 7, type: 'file', name: '文件3', editing: false, showCheckbox: true, img: ICON_FILE }
+        { id: 1, path: 'root/hcl/', type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
+        { id: 2, path: 'root/hcl/', type: 'folder', name: '文件夹1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
+        { id: 3, path: 'root/hcl/', type: 'folder', name: '文件夹2', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
+        { id: 4, path: 'root/hcl/', type: 'folder', name: '文件夹3', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
+        { id: 5, path: 'root/hcl/', type: 'file', name: '文件1', editing: false, showCheckbox: true, img: ICON_FILE },
+        { id: 6, path: 'root/hcl/', type: 'file', name: '文件2', editing: false, showCheckbox: true, img: ICON_FILE },
+        { id: 7, path: 'root/hcl/', type: 'file', name: '文件3', editing: false, showCheckbox: true, img: ICON_FILE }
       ],
       breadcrumbList: [{ name: '根目录', id: '/' }],
       contextmenu: []

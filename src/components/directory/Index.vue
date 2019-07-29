@@ -11,14 +11,15 @@
   </directory-item-normal>
   <directory-item-list
     v-else-if="type === 'list'"
+    :fields="fields"
     :max-length="maxLength"
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
     @click="handleClick"
     @save="handleSave">
-    <template v-slot:right>
-      <slot name="right"></slot>
+    <template v-slot:default="prop">
+      <slot :field="prop.field"></slot>
     </template>
   </directory-item-list>
 </template>
@@ -45,6 +46,10 @@ export default {
           editing: false
         }
       }
+    },
+    fields: {
+      type: Array,
+      default: () => []
     },
     showCheckbox: {         // 是否展示可选
       type: Boolean,

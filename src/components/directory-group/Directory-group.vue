@@ -32,6 +32,9 @@
             @change="handleItemChecked">
             <slot v-if="type === 'normal'"></slot>
             <ul v-else-if="type === 'list'">
+              <li class="hcl-directory__list__header">
+                <div v-for="item in title" :key="item">{{ item }}</div>
+              </li>
               <slot></slot>
             </ul>
           </el-checkbox-group>
@@ -53,6 +56,10 @@ export default {
     type: {                 // 目录展示的类型： 正常、列表
       type: String,
       default: 'normal'     // normal/list
+    },
+    title: {               //type为list时, 展示的头部
+      type: Array,
+      default: () => []
     },
     emptyText: {
       type: String,

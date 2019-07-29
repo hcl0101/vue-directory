@@ -17,6 +17,13 @@ export default [
         '默认值': 'normal'
       },
       {
+        '参数': 'title',
+        '说明': '以列表方式展示时，头部的标题',
+        '类型': 'String',
+        '可选值': '-',
+        '默认值': '-'
+      },
+      {
         '参数': 'show-breadcrumb',
         '说明': '是否展示当前目录结构',
         '类型': 'Array',
@@ -74,6 +81,12 @@ export default [
         '默认值': { img: '', name: '', editing: false }
       },
       {
+        '参数': 'fields',
+        '说明': '以列表方式展示时, 需要展示的字段',
+        '类型': 'Object',
+        '默认值': []
+      },
+      {
         '参数': 'show-checkbox',
         '说明': '目录是否可选',
         '类型': 'Boolean',
@@ -109,17 +122,12 @@ export default [
     ]
   },
   {
-    title: 'directory slot',
+    title: 'directory slot-scope',
     data: [
       {
-        '名称': 'right',
-        '说明': '处于列表模式下，右侧渲染的内容(操作栏)',
-        '回调函数': '(data, e) data: 文件夹/文件的数据， e: event'
-      },
-      {
-        '名称': 'save',
-        '说明': '保存名称时触发',
-        '参数': 'name: 文件、文件夹的名称'
+        '名称': 'slot-scope',
+        '说明': '处于列表模式下，每个列的渲染方式',
+        '参数': 'field: 每个列的字段名称'
       }
     ]
   }

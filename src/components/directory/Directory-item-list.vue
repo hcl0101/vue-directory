@@ -14,23 +14,27 @@
         @change="value => isChecked = value">
       </el-checkbox>
     </div>
-    <div class="directory-img flex-center">
-      <img :src="data.img" alt="">
+    <div>
+      <div class="directory-img flex-center">
+        <img :src="data.img" alt="">
+      </div>
+      <div class="directory-input" v-if="data.editing">
+        <input
+          ref="input"
+          class="hcl-input"
+          type="text"
+          v-model="name"
+          :maxlength="maxLength"
+          @click.stop.prevent
+          @blur="handleBlur"
+          @keyup.esc="handleKeyupEsc"
+          @keyup.enter="$event.target.blur"/>
+      </div>
+      <div v-else class="directory-name">{{ data.name }}</div>
     </div>
-    <div class="directory-input" v-if="data.editing">
-      <input
-        ref="input"
-        class="hcl-input"
-        type="text"
-        v-model="name"
-        :maxlength="maxLength"
-        @click.stop.prevent
-        @blur="handleBlur"
-        @keyup.esc="handleKeyupEsc"
-        @keyup.enter="$event.target.blur"/>
+    <div v-for="field in fields" :key="field">
+      <slot :field="field"></slot>
     </div>
-    <div v-else class="directory-name">{{ data.name }}</div>
-    <slot name="right"></slot>
   </li>
 </template>
 
@@ -40,6 +44,7 @@ export default {
 
   props: {
     data: Object,
+    fields: Array,
     maxLength: [Number, String],
     showCheckbox: Boolean,
     hoverColor: String
