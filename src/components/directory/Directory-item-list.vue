@@ -23,15 +23,14 @@
         class="hcl-input"
         type="text"
         v-model="name"
+        :maxlength="maxLength"
         @click.stop.prevent
         @blur="handleBlur"
         @keyup.esc="handleKeyupEsc"
         @keyup.enter="$event.target.blur"/>
     </div>
     <div v-else class="directory-name">{{ data.name }}</div>
-    <div class="directory-action">
-      <slot name="right"></slot>
-    </div>
+    <slot name="right"></slot>
   </li>
 </template>
 
@@ -41,7 +40,7 @@ export default {
 
   props: {
     data: Object,
-    fields: Array,
+    maxLength: [Number, String],
     showCheckbox: Boolean,
     hoverColor: String
   },

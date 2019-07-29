@@ -25,6 +25,7 @@ button {
 	border:0;
 	outline:0;
 	font-size:100%;
+	box-sizing: border-box;
 	vertical-align:baseline;
 	background:transparent;
 }

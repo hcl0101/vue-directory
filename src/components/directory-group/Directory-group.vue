@@ -85,11 +85,21 @@ export default {
       this.checkedItems = [];
       this.isIndeterminate = true;
       this.$emit("checked-change", []);
+    },
+    type(newVal, oldVal) {
+      let children = this.$refs['checkbox-group'].$children;
+      this.$nextTick(() => {
+        children.forEach(child => {
+          if (this.checkedItems.includes(child.data.name)) {
+            child.$children[0].isChecked = true;
+          }
+        });
+      })
     }
   },
 
   methods: {
-    handleItemChecked(value) {
+    handleItemChecked(value) {      
       const checkedCount = this.checkedItems.length;
       let children = this.$refs['checkbox-group'].$children;
       children = children.filter(child => child.showCheckbox);
@@ -99,7 +109,7 @@ export default {
 
       let checked = [];
       children.forEach(child => {
-        if (child.isChecked) {
+        if (child.$children[0].isChecked) {
           checked.push(child.data);
         }
       });
@@ -111,9 +121,9 @@ export default {
 
       this.isIndeterminate = false;
       this.$refs['checkbox-group'].$children.forEach(child => {
-        child.isChecked = isChecked;
-        if (isChecked) {
-          if (!this.checkedItems.includes(child.data.name) && child.data.showCheckbox) {
+        child.$children[0].isChecked = isChecked;
+        if (child.data.showCheckbox && isChecked) {
+          if (!this.checkedItems.includes(child.data.name)) {
             this.checkedItems.push(child.data.name);
           }
           checked.push(child.data);

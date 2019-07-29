@@ -4,6 +4,7 @@
     <vue-directory-group style="height:300px;"
       ref="directory"
       show-breadcrumb
+      maxLength="20"
       :type="type"
       :loading="loading"
       :breadcrumb-list="breadcrumbList"
@@ -25,10 +26,13 @@
           :data="directory"
           @click="handleClick"
           @save="name => save(name, index)">
+          <p v-if="type === 'normal'"
+            class="directory-path ellipsis">
+            {{ directory.name }}
+          </p>
           <template v-slot:right v-if="type === 'list'">
             <div
               v-if="data[index].type !== 'create'"
-              class="directory-actions"
               @click.stop.prevent>
               <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
               <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
@@ -183,5 +187,14 @@ export default {
     margin: 0 20px 20px 20px;
     border: 1px solid #ebedf0;
     border-radius: 2px;
+    .directory-path {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      padding: 0 12px;
+      line-height: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
   }
 </style>

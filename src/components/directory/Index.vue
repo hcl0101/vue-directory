@@ -1,6 +1,7 @@
 <template>
   <directory-item-normal
     v-if="type === 'normal'"
+    :max-length="maxLength"
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
@@ -10,6 +11,7 @@
   </directory-item-normal>
   <directory-item-list
     v-else-if="type === 'list'"
+    :max-length="maxLength"
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
@@ -44,10 +46,6 @@ export default {
         }
       }
     },
-    fields: {               // 需要展示的字段, 仅type === 'list'生效
-      type: Array,
-      default: () => []
-    },
     showCheckbox: {         // 是否展示可选
       type: Boolean,
       default: false
@@ -55,6 +53,10 @@ export default {
     hoverColor: {           // 鼠标悬停时的背景颜色
       type: String,
       default: '#bddaf9'
+    },
+    maxLength: {
+      type: [Number, String],
+      default: 20
     }
   },
 

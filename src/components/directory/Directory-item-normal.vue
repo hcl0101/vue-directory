@@ -16,6 +16,7 @@
         class="hcl-input"
         type="text"
         v-model="name"
+        :maxlength="maxLength"
         @click.stop.prevent
         @blur="handleBlur"
         @keyup.esc="handleKeyupEsc"
@@ -50,6 +51,7 @@ export default {
 
   props: {
     data: Object,
+    maxLength: [Number, String],
     showCheckbox: Boolean,
     hoverColor: String
   },
