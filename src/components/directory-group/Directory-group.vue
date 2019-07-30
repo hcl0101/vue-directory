@@ -33,7 +33,15 @@
             <slot v-if="type === 'normal'"></slot>
             <ul v-else-if="type === 'list'">
               <li class="hcl-directory__list__header">
-                <div v-for="item in title" :key="item">{{ item }}</div>
+                <div
+                  v-for="(item, index) in title"
+                  :key="item"
+                  :style="{
+                    width: fields[index].width ?  fields[index].width : 0,
+                    flex: fields[index].width ? 'none' : 1
+                  }">
+                  {{ item }}
+                </div>
               </li>
               <slot></slot>
             </ul>
@@ -85,6 +93,12 @@ export default {
       checkAll: false,
       isIndeterminate: true,
     };
+  },
+
+  computed: {
+    fields() {
+      return this.$parent.fields;
+    }
   },
 
   watch: {

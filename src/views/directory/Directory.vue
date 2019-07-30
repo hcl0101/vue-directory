@@ -24,7 +24,7 @@
           v-context-menu="contextmenu"
           :key="directory.id"
           :show-checkbox="directory.showCheckbox"
-          :fields="['id', 'path', 'operation']"
+          :fields="fields"
           :data="directory"
           @click="handleClick"
           @save="name => save(name, index)">
@@ -34,7 +34,7 @@
           </p>
           <template v-if="type === 'list'" v-slot:default="prop">
             <template v-if="directory.type !== 'create'">
-              <span>{{ directory[prop.field] }}</span>
+              <span class="ellipsis">{{ directory[prop.field] }}</span>
               <div
                 v-if="prop.field === 'operation'"
                 @click.stop.prevent>
@@ -91,6 +91,12 @@ export default {
         { id: 5, path: 'root/hcl/', type: 'file', name: '文件1', editing: false, showCheckbox: true, img: ICON_FILE },
         { id: 6, path: 'root/hcl/', type: 'file', name: '文件2', editing: false, showCheckbox: true, img: ICON_FILE },
         { id: 7, path: 'root/hcl/', type: 'file', name: '文件3', editing: false, showCheckbox: true, img: ICON_FILE }
+      ],
+      fields: [
+        { name: 'name', width: '30%' },
+        { name: 'id', width: '20%' },
+        { name: 'path', width: '30%' },
+        { name: 'operation' },
       ],
       breadcrumbList: [{ name: '根目录', id: '/' }],
       contextmenu: []

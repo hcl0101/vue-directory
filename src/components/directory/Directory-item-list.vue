@@ -4,21 +4,24 @@
     @mouseenter="isHover = true"
     @mouseleave="isHover = false"
     @click="handleClick">
-    <div
-      v-if="showCheckbox"
-      class="directory-checkbox"
-      @click.stop>
-      <el-checkbox
-        v-model="isChecked"
-        :label="data.name"
-        @change="value => isChecked = value">
-      </el-checkbox>
-    </div>
-    <div>
+    <div :style="{
+        width: firstField.width ?  firstField.width : 0,
+        flex: firstField.width ? 'none' : 1
+      }">
+      <div
+        v-if="showCheckbox"
+        class="directory-checkbox"
+        @click.stop>
+        <el-checkbox
+          v-model="isChecked"
+          :label="data.name"
+          @change="value => isChecked = value">
+        </el-checkbox>
+      </div>
       <div class="directory-img flex-center">
         <img :src="data.img" alt="">
       </div>
-      <div class="directory-input" v-if="data.editing">
+      <div v-if="data.editing" class="directory-input">
         <input
           ref="input"
           class="hcl-input"
@@ -30,10 +33,16 @@
           @keyup.esc="handleKeyupEsc"
           @keyup.enter="$event.target.blur"/>
       </div>
-      <div v-else class="directory-name">{{ data.name }}</div>
+      <div v-else class="directory-name ellipsis">{{ data[firstField.name] }}</div>
     </div>
-    <div v-for="field in fields" :key="field">
-      <slot :field="field"></slot>
+    <div
+      v-for="field in otherFields"
+      :key="field.name"
+      :style="{
+        width: field.width ?  field.width : 0,
+        flex: field.width ? 'none' : 1
+      }">
+      <slot :field="field.name"></slot>
     </div>
   </li>
 </template>
@@ -45,6 +54,7 @@ export default {
   props: {
     data: Object,
     fields: Array,
+    width: [Number, String],
     maxLength: [Number, String],
     showCheckbox: Boolean,
     hoverColor: String
@@ -57,6 +67,15 @@ export default {
       isHover: false,
       isChecked: false
     };
+  },
+
+  computed: {
+    firstField() {
+      return this.fields[0];
+    },
+    otherFields() {
+      return this.fields.length > 1 ? this.fields.slice(1, this.fields.length) : [];
+    }
   },
 
   watch: {

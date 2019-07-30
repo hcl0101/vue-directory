@@ -84,7 +84,7 @@ export default [
         '参数': 'fields',
         '说明': '以列表方式展示时, 需要展示的字段',
         '类型': 'Object',
-        '默认值': []
+        '默认值': ['name']
       },
       {
         '参数': 'show-checkbox',
