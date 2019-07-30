@@ -1,74 +1,74 @@
+const code = `
 <template>
-<div>
-  <div class="view-directory">
-    <vue-directory-group style="height:300px;"
-      ref="directory"
-      show-breadcrumb
-      maxLength="20"
-      :type="type"
-      :title="['名称', 'id', '路径', '操作']"
-      :loading="loading"
-      :breadcrumb-list="breadcrumbList"
-      @checked-change="handleChecked"
-      @click-breadcrumb="clickBreadcrumb">
-      <!-- 头部右侧的slot, 这里渲染用于目录/列表间切换的radio button -->
-      <template slot="header-right">
-        <div class="flex-center">
-          <el-radio-group v-model="type" size="mini">
-            <el-radio-button label="normal">平铺</el-radio-button>
-            <el-radio-button label="list">列表</el-radio-button>
-          </el-radio-group>
-        </div>
-      </template>
-      <template v-for="(directory, index) in data">
-        <vue-directory
-          v-context-menu="contextmenu"
-          :key="directory.id"
-          :show-checkbox="directory.showCheckbox"
-          :fields="fields"
-          :data="directory"
-          @click="handleClick"
-          @save="name => save(name, index)">
-          <p v-if="type === 'normal'"
-            class="directory-path ellipsis">
-            {{ directory.path }}
-          </p>
-          <!-- list模式下，使用作用域插槽自定义渲染 -->
-          <template v-if="type === 'list'" v-slot:default="prop">
-            <template v-if="directory.type !== 'create'">
-              <span class="ellipsis">{{ directory[prop.field] }}</span>
-              <div
-                v-if="prop.field === 'operation'"
-                @click.stop.prevent>
-                <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
-                <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
-                <el-button type="text" @click="triggerOperation(index, 'delete')">删除</el-button>
-              </div>
+  <div>
+    <div class="view-directory">
+      <vue-directory-group style="height:300px;"
+        ref="directory"
+        show-breadcrumb
+        maxLength="20"
+        :type="type"
+        :title="['名称', 'id', '路径', '操作']"
+        :loading="loading"
+        :breadcrumb-list="breadcrumbList"
+        @checked-change="handleChecked"
+        @click-breadcrumb="clickBreadcrumb">
+        <!-- 头部右侧的slot, 这里渲染用于目录/列表间切换的radio button -->
+        <template slot="header-right">
+          <div class="flex-center">
+            <el-radio-group v-model="type" size="mini">
+              <el-radio-button label="normal">平铺</el-radio-button>
+              <el-radio-button label="list">列表</el-radio-button>
+            </el-radio-group>
+          </div>
+        </template>
+        <template v-for="(directory, index) in data">
+          <vue-directory
+            v-context-menu="contextmenu"
+            :key="directory.id"
+            :show-checkbox="directory.showCheckbox"
+            :fields="fields"
+            :data="directory"
+            @click="handleClick"
+            @save="name => save(name, index)">
+            <p v-if="type === 'normal'"
+              class="directory-path ellipsis">
+              {{ directory.path }}
+            </p>
+            <!-- list模式下，使用作用域插槽自定义渲染 -->
+            <template v-if="type === 'list'" v-slot:default="prop">
+              <template v-if="directory.type !== 'create'">
+                <span class="ellipsis">{{ directory[prop.field] }}</span>
+                <div
+                  v-if="prop.field === 'operation'"
+                  @click.stop.prevent>
+                  <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
+                  <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
+                  <el-button type="text" @click="triggerOperation(index, 'delete')">删除</el-button>
+                </div>
+              </template>
             </template>
-          </template>
-        </vue-directory>
-      </template>
-    </vue-directory-group>
-    <vue-contextmenu
-      ref="context"
-      :context="contextmenu"
-      @show-contextmenu="showContextmenu"
-      @click-contextmenu="clickContextmenu">
-    </vue-contextmenu>
+          </vue-directory>
+        </template>
+      </vue-directory-group>
+      <vue-contextmenu
+        ref="context"
+        :context="contextmenu"
+        @show-contextmenu="showContextmenu"
+        @click-contextmenu="clickContextmenu">
+      </vue-contextmenu>
+    </div>
+    <pre v-highlight style="lineHeight: 20px;">
+      <code class="html" spellcheck="false">{{ code }}</code>
+    </pre>
+    <template v-for="(api, index) in apis">
+      <Table :key="index" :title="api.title" :data="api.data"></Table>
+    </template>
   </div>
-  <pre v-highlight style="lineHeight: 20px;">
-    <code class="html" spellcheck="false">{{ code }}</code>
-  </pre>
-  <template v-for="(api, index) in apis">
-    <Table :key="index" :title="api.title" :data="api.data"></Table>
-  </template>
-</div>
 </template>
 
 <script>
 import contextMenu from "@/directives/context-menu.js";
-import highlight from '@/directives/highlight.js';
-import code from './code';
+import highlight from '@/directives/highlight';
 import Table from '@/views/Table';
 import API from './api';
 
@@ -82,14 +82,12 @@ export default {
   },
 
   directives: {
-    contextMenu,
-    highlight
+    contextMenu
   },
 
   data() {
     return {
       apis: API,
-      code: code,
       loading: false,
       type: 'normal',
       data: [
@@ -140,7 +138,7 @@ export default {
 
     clickFolder(folder) {
       this.loading = true;
-      this.$message({ message: `点击了: ${folder.name}`, type: 'success' });
+      this.$message({ message: 点击了: folder.name, type: 'success' });
       this.breadcrumbList.push({ name: folder.name, id: folder.id });
       setTimeout(() => {
         this.loading = false;
@@ -148,7 +146,7 @@ export default {
     },
 
     clickFile(file) {
-      this.$message({ message: `点击了: ${file.name}`, type: 'success' });
+      this.$message({ message: '点击了: file.name', type: 'success' });
     },
 
     clickBreadcrumb(breadcrumb) {
@@ -218,3 +216,6 @@ export default {
     }
   }
 </style>
+`
+
+export default code;
