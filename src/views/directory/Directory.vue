@@ -94,7 +94,7 @@ export default {
       type: 'normal',
       data: [
         { id: 1, path: 'root/hcl/', type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
-        { id: 2, path: 'root/hcl/', type: 'folder', name: '文件夹1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
+        { id: 2, path: 'root/hcl/', type: 'folder', name: '文件1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
         { id: 3, path: 'root/hcl/', type: 'folder', name: '文件夹2', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
         { id: 4, path: 'root/hcl/', type: 'folder', name: '文件夹3', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
         { id: 5, path: 'root/hcl/', type: 'file', name: '文件1', editing: false, showCheckbox: true, img: ICON_FILE },

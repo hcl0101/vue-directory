@@ -14,7 +14,7 @@
         @click.stop>
         <el-checkbox
           v-model="isChecked"
-          :label="data.name"
+          :label="data.id"
           @change="value => isChecked = value">
         </el-checkbox>
       </div>
