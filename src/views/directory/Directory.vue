@@ -210,6 +210,7 @@ export default {
     .directory-path {
       position: absolute;
       top: 0;
+      left: 0;
       width: 100%;
       padding: 0 12px;
       line-height: 20px;
