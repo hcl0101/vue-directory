@@ -121,21 +121,21 @@ export default {
 
   methods: {
     handleItemChecked(value) {      
-      // const checkedCount = this.checkedItems.length;
-      // let children = this.$refs['checkbox-group'].$children;
-      // children = children.filter(child => child.showCheckbox);
+      const checkedCount = this.checkedItems.length;
+      let children = this.$refs['checkbox-group'].$children;
+      children = children.filter(child => child.showCheckbox);
       
-      // this.checkAll = checkedCount === children.length;
-      // this.isIndeterminate = checkedCount > 0 && checkedCount < children.length;
+      this.checkAll = checkedCount === children.length;
+      this.isIndeterminate = checkedCount > 0 && checkedCount < children.length;
 
-      // let checked = [];
-      // children.forEach(child => {
-      //   if (child.$children[0].isChecked) {
-      //     checked.push(child.data);
-      //   }
-      // });
-      // console.log(123)
-      // this.$emit("checked-change", checked);
+      let checked = [];
+      children.forEach(child => {
+        if (child.$children[0].isChecked) {
+          checked.push(child.data);
+        }
+      });
+
+      this.$emit("checked-change", checked);
     },
 
     handleCheckAllChange(isChecked) {
