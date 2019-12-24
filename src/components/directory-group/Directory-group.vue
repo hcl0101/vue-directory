@@ -111,7 +111,7 @@ export default {
       let children = this.$refs['checkbox-group'].$children;
       this.$nextTick(() => {
         children.forEach(child => {
-          if (this.checkedItems.includes(child.data.name)) {
+          if (this.checkedItems.includes(child.data.id)) {
             child.$children[0].isChecked = true;
           }
         });
@@ -120,7 +120,7 @@ export default {
   },
 
   methods: {
-    handleItemChecked(value) {      
+    handleItemChecked(value) {
       const checkedCount = this.checkedItems.length;
       let children = this.$refs['checkbox-group'].$children;
       children = children.filter(child => child.showCheckbox);
@@ -145,8 +145,8 @@ export default {
       this.$refs['checkbox-group'].$children.forEach(child => {
         child.$children[0].isChecked = isChecked;
         if (child.data.showCheckbox && isChecked) {
-          if (!this.checkedItems.includes(child.data.name)) {
-            this.checkedItems.push(child.data.name);
+          if (!this.checkedItems.includes(child.data.id)) {
+            this.checkedItems.push(child.data.id);
           }
           checked.push(child.data);
         } else {
