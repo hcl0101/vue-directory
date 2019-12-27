@@ -102,7 +102,7 @@ export default {
       this.$emit('click', this.data, e);
     },
     handleRename() {
-      this.data.editing = true;
+      this.$emit('click-name', this.data);
     },
     handleBlur() {
       this.data.editing = false;

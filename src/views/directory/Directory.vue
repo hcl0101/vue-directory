@@ -27,6 +27,7 @@
           :show-checkbox="directory.showCheckbox"
           :fields="fields"
           :data="directory"
+          @click-name="handleClickName"
           @click="handleClick"
           @save="name => save(name, index)">
           <p v-if="type === 'normal'"
@@ -115,6 +116,12 @@ export default {
   methods: {
     handleChecked(checkedItems) {
       console.log(checkedItems)
+    },
+
+    handleClickName(data) {
+      if (data.id !== 1) {
+        data.editing = true;
+      }
     },
 
     handleClick(item, e) {

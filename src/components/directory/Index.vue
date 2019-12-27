@@ -5,6 +5,7 @@
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
+    @click-name="handleClickName"
     @click="handleClick"
     @save="handleSave">
     <slot></slot>
@@ -16,6 +17,7 @@
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
+    @click-name="handleClickName"
     @click="handleClick"
     @save="handleSave">
     <template v-slot:default="prop">
@@ -72,6 +74,9 @@ export default {
   },
 
   methods: {
+    handleClickName(data) {
+      this.$emit('click-name', data);
+    },
     handleClick(data, e) {
       this.$emit('click', data, e);
     },
