@@ -6,10 +6,11 @@
       show-breadcrumb
       maxLength="20"
       :type="type"
-      :title="['名称', 'id', '路径', '操作']"
+      :header="header"
       :loading="loading"
       :breadcrumb-list="breadcrumbList"
       @checked-change="handleChecked"
+      @sort-change="handleSort"
       @click-breadcrumb="clickBreadcrumb">
       <!-- 头部右侧的slot, 这里渲染用于目录/列表间切换的radio button -->
       <template slot="header-right">
@@ -93,6 +94,12 @@ export default {
       code: code,
       loading: false,
       type: 'normal',
+      header: [
+        { key: 'name', value: '名称', sortable: true },
+        { key: 'id', value: 'id', sortable: true },
+        { key: 'path', value: '路径', sortable: true },
+        { key: 'operation', value: '操作' },
+      ],
       data: [
         { id: 1, path: 'root/hcl/', type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
         { id: 2, path: 'root/hcl/', type: 'folder', name: '文件1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
@@ -115,7 +122,11 @@ export default {
 
   methods: {
     handleChecked(checkedItems) {
-      console.log(checkedItems)
+      console.log(checkedItems);
+    },
+
+    handleSort(type) {
+      
     },
 
     handleClickName(data) {

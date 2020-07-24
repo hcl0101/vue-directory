@@ -34,13 +34,26 @@
             <ul v-else-if="type === 'list'">
               <li class="hcl-directory__list__header">
                 <div
-                  v-for="(item, index) in title"
-                  :key="item"
+                  v-for="(item, index) in header"
+                  :key="item.key"
                   :style="{
                     width: fields[index].width ?  fields[index].width : 0,
                     flex: fields[index].width ? 'none' : 1
                   }">
-                  {{ item }}
+                  <div>
+                    <span @click="clickHeader(index)">{{ item.value }}</span>
+                    <span 
+                      :style="{ display: item.sortable ? 'auto' : 'none' }"
+                      :class="[
+                        'caret-wrapper',
+                        fields[index].sort
+                          ? fields[index].sort === 'ascending' ? 'active-ascending' : 'active-descending'
+                          : ''
+                      ]">
+                      <i class="sort-caret ascending" @click="clickAscending(index)"></i>
+                      <i class="sort-caret descending" @click="clickDescending(index)"></i>
+                    </span>
+                  </div>
                 </div>
               </li>
               <slot></slot>
@@ -65,7 +78,11 @@ export default {
       type: String,
       default: 'normal'     // normal/list
     },
-    title: {               //type为list时, 展示的头部(类似于表头)
+    allowSortType: {         // 允许排序的类型
+      type: Array,
+      default: () => ['folder', 'file']
+    },
+    header: {               //type为list时, 展示的头部(类似于表头)
       type: Array,
       default: () => []
     },
@@ -91,8 +108,14 @@ export default {
     return {
       checkedItems: [],
       checkAll: false,
-      isIndeterminate: true,
+      isIndeterminate: true
     };
+  },
+
+  mounted() {
+    this.cacheData = this.$parent.data;
+    this.notSortData = this.$parent.data.filter(item => !this.allowSortType.includes(item.type));
+    this.sortData = this.$parent.data.filter(item => this.allowSortType.includes(item.type));
   },
 
   computed: {
@@ -159,6 +182,62 @@ export default {
 
     clickBreadcrumb(item, index) {
       this.$emit('click-breadcrumb', item, index);
+    },
+
+    clickHeader(index) {
+      const sort = this.fields[index].sort || '';
+      this.clearOtherSort(index);
+      if (!sort) {
+        this.$set(this.fields[index], 'sort', 'ascending');
+      } else {
+        this.$set(this.fields[index], 'sort', sort === 'descending' ? 'ascending' : 'descending');
+      }
+      this.$emit('sort-change', sort);
+      this.$parent.data = this.sortByField(index);
+    },
+
+    clickAscending(index) {
+      const sort = this.fields[index].sort
+        ? this.fields[index].sort === 'ascending' ? '' : 'ascending'
+        : 'ascending';
+      this.clearOtherSort(index);
+      this.$set(this.fields[index], 'sort', sort);
+      this.$emit('sort-change', sort);
+      this.$parent.data = this.sortByField(index);
+    },
+
+    clickDescending(index) {
+      const sort = this.fields[index].sort
+        ? this.fields[index].sort === 'descending' ? '' : 'descending'
+        : 'descending';
+      this.clearOtherSort(index);
+      this.$set(this.fields[index], 'sort', sort);
+      this.$emit('sort-change', sort);
+      this.$parent.data = this.sortByField(index);
+    },
+
+
+
+    clearOtherSort(index) {
+      this.fields.forEach((f, i) => {
+        if (index !== i) {
+          f.sort = '';
+        }
+      });
+    },
+
+    sortByField(index) {
+      const sort = this.fields[index].sort;
+      const type = this.fields[index].type;
+      const key = this.header[index].key;
+
+      if (sort === '') {
+        return this.cacheData;
+      } else {
+        return sort === 'ascending'
+          ? [ ...this.notSortData, ...this.sortData.sort((a, b) => a[key].toString().localeCompare(b[key].toString()))]
+          : [ ...this.notSortData, ...this.sortData.sort((a, b) => b[key].toString().localeCompare(a[key].toString())) ];
+      }
     }
   }
 }
