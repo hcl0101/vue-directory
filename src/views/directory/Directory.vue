@@ -125,8 +125,8 @@ export default {
       console.log(checkedItems);
     },
 
-    handleSort(type) {
-      
+    handleSort(data, type) {
+      this.data = data;
     },
 
     handleClickName(data) {

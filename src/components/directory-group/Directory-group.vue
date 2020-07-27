@@ -186,8 +186,7 @@ export default {
       } else {
         this.$set(this.fields[index], 'sort', sort === 'descending' ? 'ascending' : 'descending');
       }
-      this.$emit('sort-change', sort);
-      this.$parent.data = this.sortByField(index);
+      this.sortChange(sort, index);
     },
 
     clickAscending(index) {
@@ -196,8 +195,7 @@ export default {
         : 'ascending';
       this.clearOtherSort(index);
       this.$set(this.fields[index], 'sort', sort);
-      this.$emit('sort-change', sort);
-      this.$parent.data = this.sortByField(index);
+      this.sortChange(sort, index);
     },
 
     clickDescending(index) {
@@ -206,11 +204,14 @@ export default {
         : 'descending';
       this.clearOtherSort(index);
       this.$set(this.fields[index], 'sort', sort);
-      this.$emit('sort-change', sort);
-      this.$parent.data = this.sortByField(index);
+      this.sortChange(sort, index);
     },
 
-
+    sortChange(sort, index) {
+      const data = this.sortByField(index);
+      this.$parent.data = data;
+      this.$emit('sort-change', data, sort);
+    },
 
     clearOtherSort(index) {
       this.fields.forEach((f, i) => {
