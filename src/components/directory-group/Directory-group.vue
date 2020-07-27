@@ -112,12 +112,6 @@ export default {
     };
   },
 
-  mounted() {
-    this.cacheData = this.$parent.data;
-    this.notSortData = this.$parent.data.filter(item => !this.allowSortType.includes(item.type));
-    this.sortData = this.$parent.data.filter(item => this.allowSortType.includes(item.type));
-  },
-
   computed: {
     fields() {
       return this.$parent.fields;
@@ -228,15 +222,18 @@ export default {
 
     sortByField(index) {
       const sort = this.fields[index].sort;
-      const type = this.fields[index].type;
       const key = this.header[index].key;
 
+      const cacheData = this.$parent.data;
+      const notSortData = this.$parent.data.filter(item => !this.allowSortType.includes(item.type));
+      const sortData = this.$parent.data.filter(item => this.allowSortType.includes(item.type));
+
       if (sort === '') {
-        return this.cacheData;
+        return cacheData;
       } else {
         return sort === 'ascending'
-          ? [ ...this.notSortData, ...this.sortData.sort((a, b) => a[key].toString().localeCompare(b[key].toString()))]
-          : [ ...this.notSortData, ...this.sortData.sort((a, b) => b[key].toString().localeCompare(a[key].toString())) ];
+          ? [ ...notSortData, ...sortData.sort((a, b) => (a[key] + '').localeCompare(b[key] + ''))]
+          : [ ...notSortData, ...sortData.sort((a, b) => (b[key] + '').localeCompare(a[key] + ''))];
       }
     }
   }
