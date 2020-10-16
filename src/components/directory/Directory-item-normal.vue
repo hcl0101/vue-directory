@@ -7,9 +7,14 @@
     @mouseenter="isHover = true"
     @mouseleave="isHover = false">
     <slot></slot>
-    <div class="directory-img">
-      <img :src="data.img" alt="">
-    </div>
+    <template>
+      <div v-if="useDefaultCreateIcon && data.type === 'create'" class="directory-img__normal--default flex-center">
+        <span class="flex-center">+</span>
+      </div>
+      <div v-else class="directory-img">
+        <img :src="data.img" alt="">
+      </div>
+    </template>
     <div v-if="data.editing" class="directory-input">
       <input
         ref="input"
@@ -50,6 +55,7 @@ export default {
   name: 'DirectoryItemNormal',
 
   props: {
+    useDefaultCreateIcon: Boolean,
     data: Object,
     maxLength: [Number, String],
     showCheckbox: Boolean,
@@ -84,6 +90,7 @@ export default {
   methods: {
     focus() {
       this.$refs.input.focus();
+      this.$refs.input.select();
     },
     handleClick(e) {
       this.$emit('click', this.data, e);

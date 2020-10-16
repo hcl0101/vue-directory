@@ -18,22 +18,29 @@
           @change="value => isChecked = value">
         </el-checkbox>
       </div>
-      <div class="directory-img flex-center">
-        <img :src="data.img" alt="">
-      </div>
-      <div v-if="data.editing" class="directory-input">
-        <input
-          ref="input"
-          class="hcl-input"
-          type="text"
-          v-model="name"
-          :maxlength="maxLength"
-          @click.stop.prevent
-          @blur="handleBlur"
-          @keyup.esc="handleKeyupEsc"
-          @keyup.enter="$event.target.blur"/>
-      </div>
-      <div v-else class="directory-name ellipsis">{{ data[firstField.name] }}</div>
+      <template>
+        <div v-if="useDefaultCreateIcon && data.type === 'create'" class="directory-img__list--default flex-center">
+          <span class="flex-center">+</span>
+        </div>
+        <div v-else class="directory-img flex-center">
+          <img :src="data.img" alt="">
+        </div>
+      </template>
+      <template>
+        <div v-if="data.editing" class="directory-input">
+          <input
+            ref="input"
+            class="hcl-input"
+            type="text"
+            v-model="name"
+            :maxlength="maxLength"
+            @click.stop.prevent
+            @blur="handleBlur"
+            @keyup.esc="handleKeyupEsc"
+            @keyup.enter="$event.target.blur"/>
+        </div>
+        <div v-else class="directory-name ellipsis">{{ data[firstField.name] }}</div>
+      </template>
     </div>
     <div
       v-for="field in otherFields"
@@ -52,12 +59,13 @@ export default {
   name: 'DirectoryItemList',
 
   props: {
+    useDefaultCreateIcon: Boolean,
     data: Object,
     fields: Array,
     width: [Number, String],
     maxLength: [Number, String],
     showCheckbox: Boolean,
-    hoverColor: String
+    hoverColor: String  
   },
 
   data() {
@@ -97,6 +105,7 @@ export default {
   methods: {
     focus() {
       this.$refs.input.focus();
+      this.$refs.input.select();
     },
     handleClick(e) {
       this.$emit('click', this.data, e);

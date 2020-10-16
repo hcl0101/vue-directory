@@ -5,6 +5,7 @@
       ref="directory"
       show-breadcrumb
       maxLength="20"
+      use-default-create-icon
       :type="type"
       :header="header"
       :loading="loading"
@@ -31,17 +32,14 @@
           @click-name="handleClickName"
           @click="handleClick"
           @save="name => save(name, index)">
-          <p v-if="type === 'normal'"
-            class="directory-path ellipsis">
+          <p v-if="type === 'normal'" class="directory-path ellipsis">
             {{ directory.path }}
           </p>
           <!-- list模式下，使用作用域插槽自定义渲染 -->
           <template v-if="type === 'list'" v-slot:default="prop">
             <template v-if="directory.type !== 'create'">
               <span class="ellipsis">{{ directory[prop.field] }}</span>
-              <div
-                v-if="prop.field === 'operation'"
-                @click.stop.prevent>
+              <div v-if="prop.field === 'operation'" @click.stop.prevent>
                 <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
                 <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
                 <el-button type="text" @click="triggerOperation(index, 'delete')">删除</el-button>

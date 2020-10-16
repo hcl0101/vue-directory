@@ -2,6 +2,7 @@
   <directory-item-normal
     v-if="type === 'normal'"
     :max-length="maxLength"
+    :use-default-create-icon="useDefaultCreateIcon"
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
@@ -14,6 +15,7 @@
     v-else-if="type === 'list'"
     :fields="fields"
     :max-length="maxLength"
+    :use-default-create-icon="useDefaultCreateIcon"
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
@@ -66,10 +68,13 @@ export default {
       default: 20
     }
   },
-
+  
   computed: {
     type() {
       return this.$parent.$parent.$parent.type;
+    },
+    useDefaultCreateIcon() {
+      return this.$parent.$parent.$parent.useDefaultCreateIcon;
     }
   },
 

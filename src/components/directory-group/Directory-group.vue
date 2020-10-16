@@ -74,6 +74,10 @@ export default {
       type: Boolean,
       default: false
     },
+    useDefaultCreateIcon: { // 是否使用默认的新建文件夹图标
+      type: Boolean,
+      default: false
+    },
     type: {                 // 目录展示的类型： 正常、列表
       type: String,
       default: 'normal'     // normal/list
