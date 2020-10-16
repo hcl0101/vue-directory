@@ -17,6 +17,13 @@ export default [
         '默认值': 'normal'
       },
       {
+        '参数': 'use-default-create-icon',
+        '说明': '使用默认的新建图标',
+        '类型': 'Boolean',
+        '可选值': 'true | false',
+        '默认值': 'true'
+      },
+      {
         '参数': 'title',
         '说明': '以列表方式展示时，头部的标题',
         '类型': 'String',
