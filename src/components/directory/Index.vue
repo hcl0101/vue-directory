@@ -2,10 +2,11 @@
   <directory-item-normal
     v-if="type === 'normal'"
     :max-length="maxLength"
-    :use-default-create-icon="useDefaultCreateIcon"
+    :isActive="isActive"
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
+    :use-default-create-icon="useDefaultCreateIcon"
     @click-name="handleClickName"
     @click="handleClick"
     @save="handleSave">
@@ -15,10 +16,11 @@
     v-else-if="type === 'list'"
     :fields="fields"
     :max-length="maxLength"
-    :use-default-create-icon="useDefaultCreateIcon"
+    :isActive="isActive"
     :show-checkbox="showCheckbox"
     :hover-color="hoverColor"
     :data="data"
+    :use-default-create-icon="useDefaultCreateIcon"
     @click-name="handleClickName"
     @click="handleClick"
     @save="handleSave">
@@ -55,6 +57,10 @@ export default {
       type: Array,
       default: () => []
     },
+    isActive: {             // 是否处于选中状态
+      type: Boolean,
+      default: false
+    },
     showCheckbox: {         // 是否展示可选
       type: Boolean,
       default: false
@@ -66,6 +72,12 @@ export default {
     maxLength: {
       type: [Number, String],
       default: 20
+    }
+  },
+
+  data() {
+    return {
+      activeItemId: ''
     }
   },
   

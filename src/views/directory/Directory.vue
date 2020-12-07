@@ -26,6 +26,7 @@
         <vue-directory
           v-context-menu="contextmenu"
           :key="directory.id"
+          :is-active="directory.id === defaultActive"
           :show-checkbox="directory.showCheckbox"
           :fields="fields"
           :data="directory"
@@ -98,6 +99,7 @@ export default {
         { key: 'path', value: '路径', sortable: true },
         { key: 'operation', value: '操作' },
       ],
+      defaultActive: '',
       data: [
         { id: 1, path: 'root/hcl/', type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
         { id: 2, path: 'root/hcl/', type: 'folder', name: '文件1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
@@ -135,10 +137,13 @@ export default {
 
     handleClick(item, e) {
       if (item.type === 'create') {
+        this.defaultActive = '';
         this.createFolder();
       } else if (item.type === 'folder') {
+        this.defaultActive = '';
         this.clickFolder(item);
       } else {
+        this.defaultActive = item.id;
         this.clickFile(item);
       }
     },

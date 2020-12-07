@@ -1,6 +1,6 @@
 <template>
   <li
-    :style="{ backgroundColor: isHover ? hoverColor : 'inherit' }"
+    :style="{ backgroundColor: showHoverColor ? hoverColor : 'inherit' }"
     @mouseenter="isHover = true"
     @mouseleave="isHover = false"
     @click="handleClick">
@@ -65,7 +65,8 @@ export default {
     width: [Number, String],
     maxLength: [Number, String],
     showCheckbox: Boolean,
-    hoverColor: String  
+    hoverColor: String,
+    isActive: Boolean
   },
 
   data() {
@@ -78,12 +79,15 @@ export default {
   },
 
   computed: {
+    showHoverColor() {
+      return this.isActive || this.isHover;
+    },
     firstField() {
       return this.fields[0];
     },
     otherFields() {
       return this.fields.length > 1 ? this.fields.slice(1, this.fields.length) : [];
-    }
+    },
   },
 
   watch: {

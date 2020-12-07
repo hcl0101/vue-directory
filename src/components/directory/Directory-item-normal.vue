@@ -2,7 +2,7 @@
   <div
     ref="directory"
     class="hcl-directory"
-    :style="{ backgroundColor: isHover ? hoverColor : 'inherit' }"
+    :style="{ backgroundColor: showHoverColor ? hoverColor : 'inherit' }"
     @click="handleClick"
     @mouseenter="isHover = true"
     @mouseleave="isHover = false">
@@ -59,7 +59,8 @@ export default {
     data: Object,
     maxLength: [Number, String],
     showCheckbox: Boolean,
-    hoverColor: String
+    hoverColor: String,
+    isActive: Boolean
   },
 
   data() {
@@ -68,6 +69,12 @@ export default {
       cacheName: '',
       isHover: false,
       isChecked: false
+    }
+  },
+
+  computed: {
+    showHoverColor() {
+      return this.isActive || this.isHover;
     }
   },
 

@@ -86,7 +86,7 @@ export default {
       type: Array,
       default: () => ['folder', 'file']
     },
-    header: {               //type为list时, 展示的头部(类似于表头)
+    header: {               // type为list时, 展示的头部(类似于表头)
       type: Array,
       default: () => []
     },
