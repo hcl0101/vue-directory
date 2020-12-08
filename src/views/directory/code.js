@@ -6,11 +6,13 @@ const code = `
       ref="directory"
       show-breadcrumb
       maxLength="20"
+      use-default-create-icon
       :type="type"
-      :title="['名称', 'id', '路径', '操作']"
+      :header="header"
       :loading="loading"
       :breadcrumb-list="breadcrumbList"
       @checked-change="handleChecked"
+      @sort-change="handleSort"
       @click-breadcrumb="clickBreadcrumb">
       <!-- 头部右侧的slot, 这里渲染用于目录/列表间切换的radio button -->
       <template slot="header-right">
@@ -25,23 +27,21 @@ const code = `
         <vue-directory
           v-context-menu="contextmenu"
           :key="directory.id"
+          :is-active="directory.id === defaultActive"
           :show-checkbox="directory.showCheckbox"
           :fields="fields"
           :data="directory"
           @click-name="handleClickName"
           @click="handleClick"
           @save="name => save(name, index)">
-          <p v-if="type === 'normal'"
-            class="directory-path ellipsis">
+          <p v-if="type === 'normal'" class="directory-path ellipsis">
             {{ directory.path }}
           </p>
           <!-- list模式下，使用作用域插槽自定义渲染 -->
           <template v-if="type === 'list'" v-slot:default="prop">
             <template v-if="directory.type !== 'create'">
               <span class="ellipsis">{{ directory[prop.field] }}</span>
-              <div
-                v-if="prop.field === 'operation'"
-                @click.stop.prevent>
+              <div v-if="prop.field === 'operation'" @click.stop.prevent>
                 <el-button type="text" @click="triggerOperation(index, 'edit')">编辑</el-button>
                 <el-button type="text" @click="triggerOperation(index, 'rename')">重命名</el-button>
                 <el-button type="text" @click="triggerOperation(index, 'delete')">删除</el-button>
@@ -94,6 +94,13 @@ export default {
       code: code,
       loading: false,
       type: 'normal',
+      header: [
+        { key: 'name', value: '名称', sortable: true },
+        { key: 'id', value: 'id', sortable: true },
+        { key: 'path', value: '路径', sortable: true },
+        { key: 'operation', value: '操作' },
+      ],
+      defaultActive: '',
       data: [
         { id: 1, path: 'root/hcl/', type: 'create', name: '新建文件夹', editing: false, showCheckbox: false, img: ICON_DIRECTORY_ADD },
         { id: 2, path: 'root/hcl/', type: 'folder', name: '文件1', editing: false, showCheckbox: true, img: ICON_DIRECTORY },
@@ -116,7 +123,11 @@ export default {
 
   methods: {
     handleChecked(checkedItems) {
-      console.log(checkedItems)
+      console.log(checkedItems);
+    },
+
+    handleSort(data, type) {
+      this.data = data;
     },
 
     handleClickName(data) {
@@ -127,10 +138,13 @@ export default {
 
     handleClick(item, e) {
       if (item.type === 'create') {
+        this.defaultActive = '';
         this.createFolder();
       } else if (item.type === 'folder') {
+        this.defaultActive = '';
         this.clickFolder(item);
       } else {
+        this.defaultActive = item.id;
         this.clickFile(item);
       }
     },
@@ -227,6 +241,7 @@ export default {
     }
   }
 </style>
+
 `
 
 export default code;
